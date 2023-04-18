@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb9b9f47ee49304a8a2a19552016d5a, type: 3}
+  m_Name: ThrowingDaggerWeapon
+  m_EditorClassIdentifier: 
+  weaponName: Throwing Dagger
+  stats:
+    damage: 10
+    attackCooldown: 3
+  weaponPrefab: {fileID: 479768895512835003, guid: fd5bf9f47926ccc4f9382ece23b7675c, type: 3}
+  weaponUpgrades:
+  - {fileID: 11400000, guid: b15960a08b201e0429944b5a67601ed3, type: 2}
+  - {fileID: 11400000, guid: 0378d6c138f1f6d479c8453618aef382, type: 2}
