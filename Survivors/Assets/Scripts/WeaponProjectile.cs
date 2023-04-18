@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,16 @@ public class WeaponProjectile : MonoBehaviour
     [SerializeField] float lifespan;
     public WeaponBase weapon;
 
+    private Action<WeaponProjectile> _DisableProjectile;
+
     private void Start()
     {
         StartCoroutine("AttackDuration");
+    }
 
+    private void OnEnable()
+    {
+        StartCoroutine("AttackDuration");
     }
 
     protected virtual void Update()
@@ -27,9 +34,14 @@ public class WeaponProjectile : MonoBehaviour
         }
     }
 
+    public void Init(Action<WeaponProjectile> disableProjectile)
+    {
+        _DisableProjectile = disableProjectile;
+    }
+
     IEnumerator AttackDuration()
     {
         yield return new WaitForSeconds(lifespan);
-        GameObject.Destroy(gameObject);
+        _DisableProjectile(this);
     }
 }

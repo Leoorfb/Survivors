@@ -31,6 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.21, y: 0, z: 5.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,6 +55,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -111,11 +113,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 10
+  maxHp: 10
   speed: 3
   damage: 1
   isAttackOnCooldown: 0
   attackCooldown: 0.1
-  Drop: {fileID: 6002902948277373900, guid: 6a5e95b7b44d1aa46be5fcd7516e4a87, type: 3}
+  dropItem: {fileID: 6002902948277373900, guid: 6a5e95b7b44d1aa46be5fcd7516e4a87, type: 3}
 --- !u!54 &4305707550125338765
 Rigidbody:
   m_ObjectHideFlags: 0

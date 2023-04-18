@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,16 @@ public class Exp : MonoBehaviour
 {
     [SerializeField] int expAmount = 1;
 
+    private Action<Exp> _DisableCollectable;
+
     public void Collect(Player player)
     {
         player.GetComponent<PlayerLevel>().AddExp(expAmount);
-        Disable();
+        _DisableCollectable(this);
     }
 
-    private void Disable()
+    public void Init(Action<Exp> disableCollectable)
     {
-        gameObject.SetActive(false);
+        _DisableCollectable = disableCollectable;
     }
 }

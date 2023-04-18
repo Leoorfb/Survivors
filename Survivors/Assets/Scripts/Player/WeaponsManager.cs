@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class WeaponsManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class WeaponsManager : MonoBehaviour
 
     PlayerLevel playerLevel;
     [SerializeField]List<WeaponBase> weapons;
+
 
     private void Awake()
     {

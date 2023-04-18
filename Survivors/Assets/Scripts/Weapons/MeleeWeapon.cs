@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class MeleeWeapon : WeaponBase
 {
-    [SerializeField] GameObject projectilePrefab;
-
-
     public override void Attack()
     {
-        GameObject projectile = GameObject.Instantiate(projectilePrefab,transform.position,transform.rotation,transform);
-        projectile.GetComponent<WeaponProjectile>().weapon = this;
+        _projectilePool.Get();
 
         //Debug.Log(name + " attack");
         StartCoroutine("CooldownAttack");
+    }
+
+    protected override WeaponProjectile CreateProjectile()
+    {
+        WeaponProjectile projectile = GameObject.Instantiate(projectilePrefab, transform.position, transform.rotation, transform).GetComponent<WeaponProjectile>();
+        projectile.weapon = this;
+        projectile.Init(DisableProjectile);
+        return projectile;
     }
 }

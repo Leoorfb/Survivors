@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +7,18 @@ public class EnemyChase : MonoBehaviour
 {
     Transform playerTransform;
 
-    [SerializeField] int hp = 10;
+    public int hp = 10;
+    public int maxHp = 10;
     [SerializeField] float speed = 4;
     [SerializeField] int damage = 1;
 
-    [SerializeField] bool isAttackOnCooldown = false;
+    public bool isAttackOnCooldown = false;
     [SerializeField] float attackCooldown = 0.2f;
-
-    [SerializeField] GameObject Drop;
 
     Vector3 moveDirection = new Vector3(0, 0, 0);
     float step = 0.1f;
+
+    private Action<EnemyChase> _killAction;
 
     // Update is called once per frame
     void Update()
@@ -52,6 +54,11 @@ public class EnemyChase : MonoBehaviour
         isAttackOnCooldown = false;
     }
 
+    public void Init(Action<EnemyChase> killAction)
+    {
+        _killAction = killAction;
+    }
+
     public void TakeDamage(int damage)
     {
         if (damage != 0)
@@ -61,19 +68,12 @@ public class EnemyChase : MonoBehaviour
 
             if (hp <= 0)
             {
-                Die();
+                _killAction(this);
             }
             //Debug.Log(name + " hp: " + hp);
 
         }
         return;
-    }
-
-    private void Die()
-    {
-        GameObject.Instantiate(Drop, transform.position, transform.rotation);
-        StopAllCoroutines();
-        gameObject.SetActive(false);
     }
 
     public void SetPlayerTransform(Transform nPlayerTransform)

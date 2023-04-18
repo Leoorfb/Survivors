@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public abstract class WeaponBase : MonoBehaviour
 {
@@ -8,11 +10,15 @@ public abstract class WeaponBase : MonoBehaviour
     public WeaponData weaponData;
     public float attackCooldown = 1;
     public int weaponLevel = 1;
+    [SerializeField] protected GameObject projectilePrefab;
 
     public WeaponStats weaponStats;
 
-    protected void Start()
+    protected ObjectPool<WeaponProjectile> _projectilePool;
+
+    protected virtual void Start()
     {
+        _projectilePool = new ObjectPool<WeaponProjectile>(CreateProjectile, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject);
         StartCoroutine("CooldownAttack");
     }
 
@@ -79,5 +85,31 @@ public abstract class WeaponBase : MonoBehaviour
     public virtual void Upgrade(UpgradesData upgradeData)
     {
         weaponStats.Sum(upgradeData.weaponUpgradeStats);
+    }
+
+    protected virtual WeaponProjectile CreateProjectile()
+    {
+        WeaponProjectile projectile = GameObject.Instantiate(projectilePrefab, transform.position, transform.rotation, projectilesContainer).GetComponent<WeaponProjectile>();
+        projectile.weapon = this;
+        projectile.Init(DisableProjectile);
+        return projectile;
+    }
+
+    protected virtual void DisableProjectile(WeaponProjectile obj)
+    {
+        _projectilePool.Release(obj);
+    }
+
+    protected virtual void OnReturnedToPool(WeaponProjectile projectile)
+    {
+        projectile.gameObject.SetActive(false);
+    }
+    protected virtual void OnTakeFromPool(WeaponProjectile projectile)
+    {
+        projectile.gameObject.SetActive(true);
+    }
+    protected virtual void OnDestroyPoolObject(WeaponProjectile projectile)
+    {
+        Destroy(projectile.gameObject);
     }
 }
