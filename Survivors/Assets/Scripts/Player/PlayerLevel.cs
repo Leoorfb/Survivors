@@ -18,16 +18,21 @@ public class PlayerLevel : MonoBehaviour
     List<UpgradesData> selectedUpgrades;
 
     WeaponsManager weaponsManager;
+    PlayerPassiveItems passiveItems;
+
+    [SerializeField] List<UpgradesData> startAvailableUpgrades;
 
     private void Awake()
     {
         weaponsManager = GetComponent<WeaponsManager>();
+        passiveItems = GetComponent<PlayerPassiveItems>();
     }
 
     private void Start()
     {
         UpdateEXPText();
         UpdateLevelText();
+        AddUpgradesIntoTheListOfUpgrades(startAvailableUpgrades);
     }
 
     void UpdateEXPText()
@@ -99,9 +104,11 @@ public class PlayerLevel : MonoBehaviour
                 break;
 
             case UpgradeType.ItemUpgrade:
+                passiveItems.UpgradeItem(upgradesData);
                 break;
 
             case UpgradeType.ItemUnlock:
+                passiveItems.Equip(upgradesData.item);
                 break;
         }
 
@@ -113,5 +120,11 @@ public class PlayerLevel : MonoBehaviour
     {
         if (upgrade != null)
             upgrades.Add(upgrade);
+    }
+
+    public void AddUpgradesIntoTheListOfUpgrades(List<UpgradesData> upgradesList)
+    {
+        if (upgradesList != null)
+            upgrades.AddRange(upgradesList);
     }
 }

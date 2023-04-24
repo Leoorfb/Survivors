@@ -13,8 +13,12 @@ public class UpgradeButton : MonoBehaviour
 
     public void SetData(UpgradesData upgradesData)
     {
+        if (upgradesData.weaponData != null)
+            upgradeName.text = upgradesData.weaponData.weaponName;
+        if (upgradesData.item != null)
+            upgradeName.text = upgradesData.item.itemName;
+
         icon.sprite = upgradesData.icon;
-        upgradeName.text = upgradesData.weaponData.weaponName;
         upgradeDescription.text = upgradesData.UpgradeDescription;
     }
 

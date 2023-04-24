@@ -5,8 +5,15 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] int maxHp = 100;
-    [SerializeField] int hp = 100;
+    public int maxHp = 100;
+    public int hp = 100;
+    public int armor = 0;
+    public int healthRegen = 0;
+    public int projectileSize = 1;
+    public int projectileAmount = 1;
+    public float attackCooldownPct = 1;
+    public float speed = 5;
+
     public bool isAlive = true;
 
     [SerializeField] TextMeshProUGUI hpText;
@@ -27,18 +34,25 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (damage != 0)
-        {
-            hp -= damage;
-            //Debug.Log(damage + " damage taken");
+        ApplyArmor(ref damage);
+        
+        hp -= damage;
+        //Debug.Log(damage + " damage taken");
             
-            if (hp <= 0)
-            {
-                isAlive = false;
-            }
-            UpdateHpText();
+        if (hp <= 0)
+        {
+            isAlive = false;
         }
+        UpdateHpText();
         return;
+    }
+
+    // Talvez repensar funcionamento da armadura
+    // assim caso a armadura for maior q o dano ela nega o dano por completo
+    public void ApplyArmor(ref int damage)
+    {
+        damage -= armor;
+        if (damage < 0) damage = 0;
     }
 
     void UpdateHpText()

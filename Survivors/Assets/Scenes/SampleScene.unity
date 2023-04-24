@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 2379882}
   - component: {fileID: 2379886}
   - component: {fileID: 2379890}
+  - component: {fileID: 2379891}
   - component: {fileID: 2379889}
   - component: {fileID: 2379888}
   - component: {fileID: 2379887}
@@ -243,6 +244,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   hp: 100
+  armor: 0
+  healthRegen: 0
+  projectileSize: 1
+  projectileAmount: 1
+  attackCooldownPct: 1
+  speed: 5
   isAlive: 1
   hpText: {fileID: 1871258187}
 --- !u!54 &2379887
@@ -259,7 +266,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &2379888
 MonoBehaviour:
@@ -295,7 +302,9 @@ MonoBehaviour:
   lvlText: {fileID: 263175697}
   expText: {fileID: 2017347023}
   upgradePanel: {fileID: 679556583}
-  upgrades:
+  upgrades: []
+  startAvailableUpgrades:
+  - {fileID: 11400000, guid: be1d23bde19aaa144ae11b07d176866b, type: 2}
   - {fileID: 11400000, guid: 92c0f5559127cf64f8abf148d0cd0e64, type: 2}
 --- !u!114 &2379890
 MonoBehaviour:
@@ -310,6 +319,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+--- !u!114 &2379891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2379881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fb34b054ded1649a93fb105e94e28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  itemTest: {fileID: 0}
 --- !u!1 &154576403
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,11 +55,6 @@ public abstract class WeaponBase : MonoBehaviour
 
     public virtual UpgradesData GetNextUpgrade()
     {
-        return weaponData.weaponUpgrades[weaponLevel];
-    }
-
-    public virtual UpgradesData GetNextUpgradeAndLevelUp()
-    {
         UpgradesData ud = null;
 
 
@@ -67,19 +62,13 @@ public abstract class WeaponBase : MonoBehaviour
         {
             ud = weaponData.weaponUpgrades[weaponLevel];
         }
-        /*
-        Debug.Log("Weapon level: "+ weaponLevel);
-        Debug.Log("Weapon List of Upgrades (Total " + weaponData.weaponUpgrades.Count + "): ");
-        for (int i = 0; i < weaponData.weaponUpgrades.Count; i++)
-        {
-            Debug.Log(i + ") Weapon Upgrade: " + weaponData.weaponUpgrades[i].UpgradeDescription);
-        }
-        if (ud != null)
-            Debug.Log("Weapon Next Upgrade: " + ud.UpgradeDescription);
-        */
-
-        weaponLevel++;
         return ud;
+    }
+
+    public virtual UpgradesData GetNextUpgradeAndLevelUp()
+    {
+        WeaponLevelUp();
+        return GetNextUpgrade();
     }
 
     public virtual void Upgrade(UpgradesData upgradeData)

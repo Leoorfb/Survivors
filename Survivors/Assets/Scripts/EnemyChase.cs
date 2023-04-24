@@ -20,6 +20,14 @@ public class EnemyChase : MonoBehaviour
 
     private Action<EnemyChase> _killAction;
 
+
+    Rigidbody _Rigidbody;
+
+    private void Awake()
+    {
+        _Rigidbody = GetComponent<Rigidbody>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -33,7 +41,13 @@ public class EnemyChase : MonoBehaviour
         moveDirection = moveDirection.normalized;
         //Debug.Log(direction);
         step = speed * Time.deltaTime;
-        transform.Translate(moveDirection * step);
+
+        //_Rigidbody.AddForce(moveDirection * speed * Time.deltaTime, ForceMode.VelocityChange);
+
+        //transform.rotation = Quaternion.LookRotation(moveDirection);
+        //transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+        _Rigidbody.velocity = moveDirection * speed; //* Time.deltaTime;
     }
 
     public int Attack()
